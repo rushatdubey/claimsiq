@@ -1,0 +1,1039 @@
+
+<meta charset="UTF-8">
+<style>
+:root {
+  --bg: #ffffff;
+  --nm-light: #ffffff;
+  --nm-dark: #d1d5db;
+  --text: #0f1117;
+  --muted: #64748b;
+  --faint: #94a3b8;
+  --accent: #2563eb;
+  --accent-soft: rgba(37,99,235,0.10);
+  --red: #dc2626;
+  --red-soft: rgba(220,38,38,0.09);
+  --amber: #b45309;
+  --amber-soft: rgba(180,83,9,0.09);
+  --green: #15803d;
+  --green-soft: rgba(21,128,61,0.09);
+  --shadow-out: 8px 8px 20px var(--nm-dark), -5px -5px 14px var(--nm-light);
+  --shadow-sm: 4px 4px 10px var(--nm-dark), -3px -3px 8px var(--nm-light);
+  --shadow-in: inset 3px 3px 8px var(--nm-dark), inset -3px -3px 8px var(--nm-light);
+  --ff: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  --r: 16px;
+  --r-sm: 10px;
+}
+
+.dark {
+  --bg: #0f1117;
+  --nm-light: #1a1d27;
+  --nm-dark: #070810;
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --faint: #475569;
+  --accent: #3b82f6;
+  --accent-soft: rgba(59,130,246,0.12);
+  --red: #f87171;
+  --red-soft: rgba(248,113,113,0.10);
+  --amber: #fbbf24;
+  --amber-soft: rgba(251,191,36,0.10);
+  --green: #4ade80;
+  --green-soft: rgba(74,222,128,0.10);
+}
+
+.theme-btn {
+  width: 34px; height: 34px; border-radius: 10px;
+  background: var(--bg); box-shadow: var(--shadow-sm);
+  border: none; cursor: pointer; font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+  transition: box-shadow .2s, transform .18s;
+  color: var(--muted); flex-shrink: 0;
+}
+.theme-btn:hover { box-shadow: var(--shadow-out); transform: scale(1.06); }
+.theme-btn:active { box-shadow: var(--shadow-in); transform: scale(0.95); }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { background: var(--bg); font-family: var(--ff); color: var(--text); -webkit-font-smoothing: antialiased; }
+
+@keyframes fadeUp   { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:translateY(0); } }
+@keyframes floatY   { 0%,100% { transform:translateY(0px); } 50% { transform:translateY(-10px); } }
+@keyframes pulse    { 0%,100% { opacity:1; } 50% { opacity:.5; } }
+@keyframes slideIn  { from { opacity:0; transform:translateX(12px); } to { opacity:1; transform:translateX(0); } }
+@keyframes barAnim  { from { width:0; } to { width:var(--w); } }
+@keyframes expandIn { from { opacity:0; transform:scale(0.96); } to { opacity:1; transform:scale(1); } }
+
+.au { animation: fadeUp .6s cubic-bezier(.22,1,.36,1) both; }
+.au1 { animation: fadeUp .6s .08s cubic-bezier(.22,1,.36,1) both; }
+.au2 { animation: fadeUp .6s .16s cubic-bezier(.22,1,.36,1) both; }
+.au3 { animation: fadeUp .6s .24s cubic-bezier(.22,1,.36,1) both; }
+.au4 { animation: fadeUp .6s .32s cubic-bezier(.22,1,.36,1) both; }
+.au5 { animation: fadeUp .6s .40s cubic-bezier(.22,1,.36,1) both; }
+.au6 { animation: fadeUp .6s .48s cubic-bezier(.22,1,.36,1) both; }
+
+.page { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+
+/* ── LANDING ── */
+#landing { background: var(--bg); min-height: 100vh; padding-bottom: 60px; }
+
+nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 28px;
+  max-width: 1100px; margin: 0 auto;
+}
+
+.nav-brand { display: flex; align-items: center; gap: 10px; }
+.nav-mark {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--bg); box-shadow: var(--shadow-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 13px; color: var(--text);
+  transition: box-shadow .2s;
+}
+.nav-mark:hover { box-shadow: var(--shadow-in); }
+.nav-name { font-size: 16px; font-weight: 600; letter-spacing: -.4px; }
+
+.nav-pill {
+  display: flex; align-items: center; gap: 6px;
+  padding: 5px 5px 5px 7px;
+  border-radius: 100px;
+  background: var(--bg); box-shadow: var(--shadow-sm);
+  font-size: 12px; color: var(--muted); font-weight: 500;
+}
+
+.live-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--green);
+  animation: pulse 2s infinite;
+  margin-right: 2px;
+}
+
+.nav-action {
+  padding: 7px 14px; border-radius: 100px;
+  background: #0f1117; color: #ffffff;
+  border: none; font-family: var(--ff); font-size: 12px; font-weight: 500;
+  cursor: pointer; margin-left: 8px;
+  transition: opacity .18s, transform .18s;
+}
+.nav-action:hover { opacity: .85; transform: scale(1.02); }
+.dark .nav-action { background: #f1f5f9; color: #0f1117; }
+
+/* HERO */
+.hero {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 48px; align-items: center;
+  padding: 56px 28px 48px;
+  max-width: 1100px; margin: 0 auto;
+}
+
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px 5px 8px;
+  border-radius: 100px; background: var(--bg); box-shadow: var(--shadow-sm);
+  font-size: 11.5px; color: var(--muted); font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.hero-tag span {
+  background: var(--accent-soft); color: var(--accent);
+  font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 100px;
+}
+
+.hero-title {
+  font-size: clamp(42px, 6vw, 64px);
+  font-weight: 700; letter-spacing: -2.5px; line-height: 1.04;
+  color: var(--text); margin-bottom: 14px;
+}
+
+.hero-title .gradient-text {
+  background: linear-gradient(135deg, #1d4ed8 0%, #7c3aed 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 16px; font-weight: 400; color: var(--muted);
+  margin-bottom: 22px; letter-spacing: -.2px; line-height: 1.5;
+}
+
+.hero-desc {
+  font-size: 13.5px; color: var(--muted); line-height: 1.7;
+  margin-bottom: 20px; max-width: 500px;
+}
+
+.stack-line {
+  font-size: 11px; color: var(--faint);
+  margin-bottom: 32px; letter-spacing: .04em;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+
+.stack-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--faint); }
+
+.cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 0; }
+
+.btn-primary {
+  display: flex; align-items: center; gap: 7px;
+  padding: 11px 20px; border-radius: 12px;
+  background: #0f1117; color: #ffffff;
+  border: none; font-family: var(--ff); font-size: 13.5px; font-weight: 500;
+  cursor: pointer; transition: all .22s cubic-bezier(.22,1,.36,1);
+  box-shadow: 4px 4px 14px rgba(15,17,23,0.25), -1px -1px 4px rgba(255,255,255,0.5);
+  letter-spacing: -.1px;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 6px 8px 20px rgba(15,17,23,0.30), -1px -1px 4px rgba(255,255,255,0.5); }
+.btn-primary:active { transform: scale(0.97); }
+.dark .btn-primary { background: #f1f5f9; color: #0f1117; box-shadow: 4px 4px 14px rgba(0,0,0,0.4), -1px -1px 4px rgba(255,255,255,0.05); }
+
+.btn-ghost {
+  display: flex; align-items: center; gap: 7px;
+  padding: 11px 18px; border-radius: 12px;
+  background: var(--bg); color: var(--text);
+  border: none; font-family: var(--ff); font-size: 13.5px; font-weight: 500;
+  cursor: pointer; transition: all .22s cubic-bezier(.22,1,.36,1);
+  box-shadow: var(--shadow-sm);
+  letter-spacing: -.1px;
+}
+.btn-ghost:hover { box-shadow: var(--shadow-out); transform: translateY(-1px); }
+.btn-ghost:active { box-shadow: var(--shadow-in); transform: scale(0.97); }
+
+/* HERO VISUAL */
+.hero-visual {
+  position: relative;
+  display: flex; justify-content: center; align-items: center;
+}
+
+.float-card {
+  width: 100%; max-width: 460px;
+  border-radius: 22px;
+  background: var(--bg); box-shadow: var(--shadow-out);
+  padding: 22px;
+  animation: floatY 6s ease-in-out infinite;
+}
+
+.fc-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.fc-brand { display: flex; align-items: center; gap: 8px; }
+.fc-dot-row { display: flex; gap: 5px; }
+.fc-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+}
+
+.fc-mini-tabs {
+  display: flex; gap: 4px;
+  padding: 4px; border-radius: 10px;
+  background: var(--bg); box-shadow: var(--shadow-in);
+}
+
+.fc-tab {
+  font-size: 9px; padding: 4px 8px; border-radius: 7px;
+  color: var(--faint); cursor: default;
+  transition: all .2s;
+}
+
+.fc-tab.a {
+  background: var(--bg); box-shadow: var(--shadow-sm);
+  color: var(--text); font-weight: 600;
+}
+
+.kpi-mini {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 8px;
+  margin-bottom: 14px;
+}
+
+.kpi-m {
+  border-radius: 12px; background: var(--bg); box-shadow: var(--shadow-sm);
+  padding: 10px 10px 8px;
+}
+
+.kpi-m-label { font-size: 8.5px; color: var(--faint); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
+.kpi-m-val   { font-size: 16px; font-weight: 300; letter-spacing: -1px; color: var(--text); line-height: 1; }
+.kpi-m-badge { font-size: 8px; font-weight: 500; padding: 1px 5px; border-radius: 100px; margin-top: 4px; display: inline-block; }
+.bg-g { background: var(--green-soft); color: var(--green); }
+.bg-r { background: var(--red-soft); color: var(--red); }
+.bg-a { background: var(--amber-soft); color: var(--amber); }
+
+.mini-chart-row { display: grid; grid-template-columns: 1.4fr 1fr; gap: 8px; }
+
+.mini-chart-card {
+  border-radius: 12px; background: var(--bg); box-shadow: var(--shadow-sm);
+  padding: 10px;
+}
+
+.mc-label { font-size: 8.5px; color: var(--faint); margin-bottom: 8px; letter-spacing: .04em; }
+
+.bar-preview { display: flex; flex-direction: column; gap: 4px; }
+.bar-row { display: flex; align-items: center; gap: 5px; }
+.bar-name { font-size: 7.5px; color: var(--muted); width: 40px; flex-shrink: 0; }
+.bar-track { flex: 1; height: 5px; border-radius: 3px; background: rgba(0,0,0,0.06); overflow: hidden; }
+.bar-fill  { height: 100%; border-radius: 3px; animation: barAnim 1.4s cubic-bezier(.22,1,.36,1) both; }
+
+.line-preview { position: relative; height: 40px; }
+.line-preview svg { width: 100%; height: 100%; }
+
+.trend-mini { font-size: 8.5px; color: var(--faint); display: flex; align-items: center; gap: 3px; margin-top: 6px; }
+.trend-up { color: var(--green); font-weight: 600; }
+
+/* METRICS STRIP */
+.metrics-strip {
+  max-width: 1100px; margin: 0 auto 56px;
+  padding: 0 28px;
+}
+
+.ms-inner {
+  display: grid; grid-template-columns: repeat(5,1fr); gap: 12px;
+  padding: 20px;
+  border-radius: 20px; background: var(--bg); box-shadow: var(--shadow-in);
+}
+
+.ms-card {
+  border-radius: 14px; background: var(--bg); box-shadow: var(--shadow-sm);
+  padding: 16px 14px; text-align: center;
+  transition: box-shadow .2s, transform .2s;
+}
+.ms-card:hover { box-shadow: var(--shadow-out); transform: translateY(-2px); }
+
+.ms-val { font-size: 22px; font-weight: 300; letter-spacing: -1px; color: var(--text); line-height: 1; }
+.ms-label { font-size: 10.5px; color: var(--faint); margin-top: 5px; letter-spacing: .02em; }
+.ms-trend { font-size: 10px; font-weight: 500; margin-top: 5px; }
+.tr-g { color: var(--green); }
+.tr-r { color: var(--red); }
+.tr-a { color: var(--amber); }
+
+/* FEATURES */
+.section { max-width: 1100px; margin: 0 auto 56px; padding: 0 28px; }
+.section-label { font-size: 11px; color: var(--faint); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+.section-title { font-size: 28px; font-weight: 600; letter-spacing: -.8px; margin-bottom: 8px; }
+.section-sub { font-size: 14px; color: var(--muted); margin-bottom: 32px; line-height: 1.6; max-width: 560px; }
+
+.features-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; }
+
+.feat-card {
+  border-radius: 18px; background: var(--bg); box-shadow: var(--shadow-out);
+  padding: 22px 18px; transition: all .22s cubic-bezier(.22,1,.36,1);
+  cursor: default;
+}
+.feat-card:hover { box-shadow: var(--shadow-sm); transform: translateY(-3px); }
+.feat-card:hover .feat-icon { box-shadow: var(--shadow-in); }
+
+.feat-icon {
+  width: 40px; height: 40px; border-radius: 12px;
+  background: var(--bg); box-shadow: var(--shadow-sm);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 14px; font-size: 18px;
+  transition: box-shadow .2s;
+}
+
+.feat-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 7px; letter-spacing: -.2px; }
+.feat-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
+
+/* ABOUT */
+.about-card {
+  border-radius: 22px; background: var(--bg); box-shadow: var(--shadow-out);
+  padding: 40px 44px; display: grid; grid-template-columns: 1fr 2fr; gap: 48px; align-items: center;
+}
+
+.ab-label { font-size: 11px; color: var(--faint); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px; }
+.ab-title { font-size: 22px; font-weight: 600; letter-spacing: -.6px; line-height: 1.2; color: var(--text); }
+.ab-text { font-size: 13.5px; color: var(--muted); line-height: 1.75; }
+.ab-text + .ab-text { margin-top: 12px; }
+
+.ab-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
+.ab-pill {
+  font-size: 11px; padding: 4px 10px; border-radius: 100px;
+  background: var(--bg); box-shadow: var(--shadow-sm); color: var(--muted);
+}
+
+/* FOOTER */
+footer {
+  max-width: 1100px; margin: 0 auto;
+  padding: 24px 28px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid var(--nm-dark);
+}
+
+.footer-left { font-size: 12px; color: var(--faint); line-height: 1.7; }
+.footer-left strong { color: var(--muted); font-weight: 500; }
+
+.footer-icons { display: flex; gap: 8px; }
+.ficon {
+  width: 34px; height: 34px; border-radius: 10px;
+  background: var(--bg); box-shadow: var(--shadow-sm);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted); text-decoration: none;
+  transition: all .2s; font-size: 15px;
+}
+.ficon:hover { box-shadow: var(--shadow-out); color: var(--text); }
+.ficon svg { width: 16px; height: 16px; }
+
+/* ── DASHBOARD ── */
+#dashboard { display: none; background: var(--bg); min-height: 100vh; }
+
+/* TRANSITION */
+.page-exit { animation: expandIn .4s cubic-bezier(.22,1,.36,1) reverse both; }
+.page-enter { animation: expandIn .4s cubic-bezier(.22,1,.36,1) both; }
+
+/* DASH INTERNALS */
+.d-header {
+  padding: 22px 28px 18px;
+  display: flex; align-items: flex-start; justify-content: space-between;
+  max-width: 1100px; margin: 0 auto;
+}
+
+.d-brand { display: flex; align-items: center; gap: 12px; }
+.d-mark {
+  width: 38px; height: 38px; border-radius: 11px;
+  background: var(--bg); box-shadow: var(--shadow-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: var(--text);
+  transition: box-shadow .2s; cursor: pointer;
+}
+.d-mark:hover { box-shadow: var(--shadow-in); }
+.d-name { font-size: 17px; font-weight: 600; letter-spacing: -.4px; }
+.d-sub { font-size: 11.5px; color: var(--faint); margin-top: 2px; }
+
+.d-header-right { display: flex; align-items: center; gap: 10px; }
+
+.author-chip {
+  display: flex; align-items: center; gap: 7px;
+  padding: 7px 14px 7px 8px;
+  border-radius: 100px; background: var(--bg); box-shadow: var(--shadow-sm);
+  font-size: 12.5px; font-weight: 500; color: var(--text);
+}
+.author-av {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--text); color: #fff;
+  font-size: 9px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.share-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 100px;
+  background: var(--bg); box-shadow: var(--shadow-out);
+  border: none; font-family: var(--ff); font-size: 12.5px; font-weight: 500; color: var(--text);
+  cursor: pointer; transition: all .18s;
+}
+.share-btn:hover { box-shadow: var(--shadow-sm); }
+.share-btn:active { box-shadow: var(--shadow-in); transform: scale(.97); }
+
+.back-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 100px;
+  background: var(--bg); box-shadow: var(--shadow-sm);
+  border: none; font-family: var(--ff); font-size: 12px; font-weight: 500; color: var(--muted);
+  cursor: pointer; transition: all .18s;
+}
+.back-btn:hover { color: var(--text); box-shadow: var(--shadow-out); }
+
+.tab-divider { height: 1px; background: var(--nm-dark); margin: 0 28px; max-width: 1044px; margin-left: auto; margin-right: auto; }
+
+.tab-rail {
+  display: flex; margin: 16px 28px;
+  max-width: 1044px; margin-left: auto; margin-right: auto;
+  padding: 5px; border-radius: 16px;
+  background: var(--bg); box-shadow: var(--shadow-in); gap: 4px;
+}
+
+.tab-btn {
+  flex: 1; font-family: var(--ff); font-size: 12px; font-weight: 500;
+  color: var(--muted); background: transparent; border: none; border-radius: 12px;
+  padding: 9px 8px; cursor: pointer; white-space: nowrap;
+  transition: all .22s cubic-bezier(.22,1,.36,1);
+}
+.tab-btn.active { color: var(--text); background: var(--bg); box-shadow: var(--shadow-out); }
+.tab-btn:hover:not(.active) { color: var(--text); }
+
+.pane { display: none; padding: 0 28px; max-width: 1100px; margin: 0 auto; }
+.pane.active { display: block; animation: slideIn .3s cubic-bezier(.22,1,.36,1) both; }
+
+.kpi-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 18px; }
+.kpi-card { border-radius: 18px; background: var(--bg); box-shadow: var(--shadow-out); padding: 20px 20px 18px; transition: box-shadow .2s; }
+.kpi-card:hover { box-shadow: var(--shadow-sm); }
+.k-lbl { font-size: 10.5px; color: var(--faint); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px; }
+.k-val { font-size: 30px; font-weight: 300; letter-spacing: -1.4px; line-height: 1; color: var(--text); }
+.k-val span { font-size: 15px; letter-spacing: -.2px; }
+.k-sub { font-size: 11.5px; color: var(--muted); margin-top: 5px; }
+.badge { display: inline-flex; align-items: center; font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 100px; margin-top: 8px; }
+.badge-g { background: var(--green-soft); color: var(--green); }
+.badge-r { background: var(--red-soft); color: var(--red); }
+.badge-a { background: var(--amber-soft); color: var(--amber); }
+
+.chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.chart-grid-w { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; margin-bottom: 14px; }
+.card { border-radius: 18px; background: var(--bg); box-shadow: var(--shadow-out); padding: 22px 22px 18px; transition: box-shadow .2s; }
+.card:hover { box-shadow: 7px 7px 18px var(--nm-dark), -5px -5px 12px var(--nm-light); }
+.card-full { border-radius: 18px; background: var(--bg); box-shadow: var(--shadow-out); padding: 22px 22px 18px; margin-bottom: 14px; }
+.c-lbl { font-size: 10.5px; color: var(--faint); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 3px; }
+.c-title { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 6px; letter-spacing: -.2px; }
+.c-desc { font-size: 12px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+.legend { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; font-size: 11.5px; color: var(--muted); }
+.leg-item { display: flex; align-items: center; gap: 5px; }
+.leg-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+.insight { margin-top: 14px; padding: 13px 16px; border-radius: 12px; background: var(--bg); box-shadow: var(--shadow-in); font-size: 12px; color: var(--muted); line-height: 1.6; }
+.insight strong { color: var(--text); font-weight: 500; }
+
+.ctbl { width: 100%; border-collapse: collapse; font-size: 12px; }
+.ctbl th { color: var(--faint); font-weight: 400; text-align: left; padding: 0 8px 8px 0; font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; border-bottom: 1.5px solid var(--nm-dark); }
+.ctbl td { padding: 8px 8px 8px 0; color: var(--text); border-bottom: 1px solid var(--nm-dark); vertical-align: middle; }
+.ctbl tr:last-child td { border-bottom: none; }
+.tier-tag { display: inline-block; font-size: 10.5px; padding: 2px 8px; border-radius: 100px; font-weight: 500; }
+.t-hi { background: var(--red-soft); color: var(--red); }
+.t-ab { background: var(--amber-soft); color: var(--amber); }
+.t-be { background: var(--green-soft); color: var(--green); }
+.t-lo { background: var(--accent-soft); color: var(--accent); }
+.sig-r { color: var(--red); font-weight: 500; font-size: 11.5px; }
+.sig-g { color: var(--green); font-weight: 500; font-size: 11.5px; }
+.sig-a { color: var(--amber); font-weight: 500; font-size: 11.5px; }
+
+.pig-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 18px; }
+.pig-big { font-size: 36px; font-weight: 300; letter-spacing: -1.5px; color: var(--green); }
+
+.d-footer { max-width: 1100px; margin: 28px auto 0; padding: 16px 28px; border-radius: 16px; background: var(--bg); box-shadow: var(--shadow-in); display: flex; align-items: center; justify-content: space-between; }
+.d-footer-src { font-size: 11px; color: var(--faint); line-height: 1.7; }
+.d-footer-by { font-size: 12px; color: var(--muted); }
+.d-footer-by strong { color: var(--text); font-weight: 500; }
+
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(8px); background: var(--bg); box-shadow: var(--shadow-out); color: var(--text); font-family: var(--ff); font-size: 12.5px; font-weight: 500; padding: 10px 20px; border-radius: 100px; opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; white-space: nowrap; z-index: 999; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 768px) {
+  .hero { grid-template-columns: 1fr; gap: 32px; padding: 32px 20px 24px; }
+  .hero-visual { display: none; }
+  .features-grid { grid-template-columns: repeat(2,1fr); }
+  .ms-inner { grid-template-columns: repeat(3,1fr); }
+  .about-card { grid-template-columns: 1fr; gap: 24px; padding: 28px 24px; }
+  nav { padding: 16px 20px; }
+  .kpi-row { grid-template-columns: repeat(2,1fr); }
+  .chart-grid, .chart-grid-w { grid-template-columns: 1fr; }
+  .tab-rail { margin: 16px 20px; }
+  .pane { padding: 0 20px; }
+}
+</style>
+
+<!-- ══════════════════ LANDING ══════════════════ -->
+<div id="landing">
+
+  <nav class="au">
+    <div class="nav-brand">
+      <div class="nav-mark">IQ</div>
+      <div class="nav-name">ClaimsIQ</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="nav-pill">
+        <span class="live-dot"></span>
+        NCID 2009–2023
+      </div>
+      <button class="theme-btn" id="theme-btn-landing" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark/light mode">🌙</button>
+      <button class="nav-action" onclick="openDash()">Open Dashboard</button>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div>
+      <div class="au">
+        <div class="hero-tag">
+          <span>NEW</span>
+          15-year analytics cohort, NCID Reports 1–6
+        </div>
+      </div>
+      <div class="au1">
+        <h1 class="hero-title">
+          Irish Motor<br><span class="gradient-text">Insurance</span><br>Intelligence.
+        </h1>
+      </div>
+      <div class="au2">
+        <p class="hero-sub">Built on Central Bank of Ireland data.</p>
+        <p class="hero-desc">
+          ClaimsIQ transforms 15 years of regulator-published NCID data, covering 88–98% of the Irish motor insurance market, into a structured analytics platform. Built by <strong style="color:var(--text);font-weight:500">Rushat Dubey</strong>, it analyses pricing adequacy, litigation costs, driver risk profiles, county-level loss ratios, settlement channel efficiency, and the measurable impact of the Personal Injuries Guidelines.
+        </p>
+      </div>
+      <div class="au3">
+        <div class="stack-line">
+          <span>SQL</span><span class="stack-sep"></span>
+          <span>Python</span><span class="stack-sep"></span>
+          <span>Chart.js</span><span class="stack-sep"></span>
+          <span>Insurance Analytics</span><span class="stack-sep"></span>
+          <span>Data Intelligence</span>
+        </div>
+      </div>
+      <div class="au4">
+        <div class="cta-row">
+          <button class="btn-primary" onclick="openDash()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Open Dashboard
+          </button>
+          <a class="btn-ghost" href="https://github.com/rushatdubey/claimsiq" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            GitHub Repository
+          </a>
+          <a class="btn-ghost" href="https://www.linkedin.com/in/rushat/" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            Reach out to me
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- HERO VISUAL -->
+    <div class="hero-visual au5">
+      <div class="float-card">
+        <div class="fc-header">
+          <div class="fc-brand">
+            <div class="nav-mark" style="width:26px;height:26px;border-radius:7px;font-size:10px">IQ</div>
+            <span style="font-size:12px;font-weight:600;letter-spacing:-.2px">ClaimsIQ</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="fc-dot-row">
+              <div class="fc-dot" style="background:#ff5f57"></div>
+              <div class="fc-dot" style="background:#ffbd2e"></div>
+              <div class="fc-dot" style="background:#28c840"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fc-mini-tabs" style="margin-bottom:14px">
+          <div class="fc-tab a">Market</div>
+          <div class="fc-tab">Channels</div>
+          <div class="fc-tab">Drivers</div>
+          <div class="fc-tab">County</div>
+          <div class="fc-tab">PIG</div>
+        </div>
+
+        <div class="kpi-mini">
+          <div class="kpi-m">
+            <div class="kpi-m-label">GWP 2023</div>
+            <div class="kpi-m-val">€1.14<span style="font-size:10px">B</span></div>
+            <span class="kpi-m-badge bg-g">+5.7%</span>
+          </div>
+          <div class="kpi-m">
+            <div class="kpi-m-label">Loss Ratio</div>
+            <div class="kpi-m-val">67<span style="font-size:10px">%</span></div>
+            <span class="kpi-m-badge bg-a">Watch</span>
+          </div>
+          <div class="kpi-m">
+            <div class="kpi-m-label">Claims</div>
+            <div class="kpi-m-val">€693<span style="font-size:10px">M</span></div>
+            <span class="kpi-m-badge bg-r">+17.5%</span>
+          </div>
+        </div>
+
+        <div class="mini-chart-row">
+          <div class="mini-chart-card">
+            <div class="mc-label">COUNTY LOSS RATIO</div>
+            <div class="bar-preview">
+              <div class="bar-row"><span class="bar-name">Dublin</span><div class="bar-track"><div class="bar-fill" style="--w:95%;width:95%;background:rgba(220,38,38,0.5);animation-delay:.2s"></div></div></div>
+              <div class="bar-row"><span class="bar-name">Cork</span><div class="bar-track"><div class="bar-fill" style="--w:93%;width:93%;background:rgba(220,38,38,0.4);animation-delay:.3s"></div></div></div>
+              <div class="bar-row"><span class="bar-name">Kildare</span><div class="bar-track"><div class="bar-fill" style="--w:86%;width:86%;background:rgba(180,83,9,0.4);animation-delay:.4s"></div></div></div>
+              <div class="bar-row"><span class="bar-name">Kerry</span><div class="bar-track"><div class="bar-fill" style="--w:58%;width:58%;background:rgba(21,128,61,0.45);animation-delay:.5s"></div></div></div>
+              <div class="bar-row"><span class="bar-name">Mayo</span><div class="bar-track"><div class="bar-fill" style="--w:50%;width:50%;background:rgba(21,128,61,0.45);animation-delay:.6s"></div></div></div>
+            </div>
+            <div class="trend-mini"><span class="trend-up">+24pts</span> Dublin vs national avg</div>
+          </div>
+          <div class="mini-chart-card">
+            <div class="mc-label">PIG SAVINGS (€M)</div>
+            <svg viewBox="0 0 80 48" style="width:100%;height:44px" aria-hidden="true">
+              <polyline points="10,40 35,24 60,8" fill="none" stroke="rgba(21,128,61,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="10" cy="40" r="2.5" fill="rgba(21,128,61,0.6)"/>
+              <circle cx="35" cy="24" r="2.5" fill="rgba(21,128,61,0.6)"/>
+              <circle cx="60" cy="8" r="2.5" fill="rgba(21,128,61,0.6)"/>
+              <text x="8" y="46" font-size="6" fill="#94a3b8">2021</text>
+              <text x="30" y="46" font-size="6" fill="#94a3b8">2022</text>
+              <text x="55" y="46" font-size="6" fill="#94a3b8">2023</text>
+            </svg>
+            <div class="trend-mini"><span class="trend-up">€435M</span> cumulative saving</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- METRICS STRIP -->
+  <div class="metrics-strip au6">
+    <div class="ms-inner">
+      <div class="ms-card">
+        <div class="ms-val">€1.14<span style="font-size:13px">B</span></div>
+        <div class="ms-label">Market GWP</div>
+        <div class="ms-trend tr-g">+5.7% YoY</div>
+      </div>
+      <div class="ms-card">
+        <div class="ms-val">1.78<span style="font-size:13px">M</span></div>
+        <div class="ms-label">Active Policies</div>
+        <div class="ms-trend tr-g">+1.4% YoY</div>
+      </div>
+      <div class="ms-card">
+        <div class="ms-val">€435<span style="font-size:13px">M</span></div>
+        <div class="ms-label">PIG Savings</div>
+        <div class="ms-trend tr-g">Since Apr 2021</div>
+      </div>
+      <div class="ms-card">
+        <div class="ms-val">4.2<span style="font-size:13px">x</span></div>
+        <div class="ms-label">Litigation Cost</div>
+        <div class="ms-trend tr-r">vs direct settlement</div>
+      </div>
+      <div class="ms-card">
+        <div class="ms-val">67<span style="font-size:13px">%</span></div>
+        <div class="ms-label">Loss Ratio 2023</div>
+        <div class="ms-trend tr-a">Watch zone</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="section">
+    <div class="section-label">Platform modules</div>
+    <h2 class="section-title">Five lenses on the Irish market.</h2>
+    <p class="section-sub">Each module translates raw NCID data into actionable underwriting and claims intelligence, structured for insurance practitioners and analysts.</p>
+    <div class="features-grid">
+      <div class="feat-card">
+        <div class="feat-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="feat-name">Market Overview</div>
+        <div class="feat-desc">15 years of GWP, loss ratio, claim frequency, and the structural damage-versus-injury cost crossover.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="feat-name">Settlement Channels</div>
+        <div class="feat-desc">Litigation costs 4.2x more than direct settlement. This module quantifies the margin impact of channel mix and the cost multiple at each step.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="feat-name">Driver Risk</div>
+        <div class="feat-desc">Premium adequacy ratios by age band reveal where the book is cross-subsidising risk and where adverse selection pressure builds.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+        </div>
+        <div class="feat-name">County Risk</div>
+        <div class="feat-desc">Dublin's loss ratio sits 24 points above the national average. County-level signals identify where premiums need raising and where competitive opportunities exist.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="feat-name">PIG Impact</div>
+        <div class="feat-desc">The Personal Injuries Guidelines have saved the market €435M since April 2021. This module tracks adoption, per-claim savings, and the unfinished litigation opportunity.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="section">
+    <div class="about-card">
+      <div>
+        <div class="ab-label">Why ClaimsIQ exists</div>
+        <h2 class="ab-title" style="font-size:22px">Built to make insurance data legible.</h2>
+        <div class="ab-pills">
+          <span class="ab-pill">15-year cohort</span>
+          <span class="ab-pill">88–98% market coverage</span>
+          <span class="ab-pill">NCID verified</span>
+          <span class="ab-pill">1.78M policies</span>
+        </div>
+      </div>
+      <div>
+        <p class="ab-text">Irish motor insurance generates massive volumes of pricing and claims data, but much of it remains fragmented and difficult to interpret. ClaimsIQ transforms regulator-published NCID data into a structured analytics platform for understanding profitability, risk concentration, claims inflation, and pricing adequacy across the Irish insurance market.</p>
+        <p class="ab-text">Every figure is traceable to a published Central Bank source. The platform is designed for insurance practitioners, actuaries, pricing analysts, and anyone who needs to understand the forces reshaping the Irish motor market beyond the headline premium number.</p>
+        <div style="margin-top:20px">
+          <button class="btn-primary" onclick="openDash()" style="display:inline-flex">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Explore the Dashboard
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">
+      Built and designed by <strong>Rushat Dubey</strong><br>
+      <span style="font-size:10.5px">Central Bank of Ireland NCID Reports 1–6 · © 2024</span>
+    </div>
+    <div class="footer-icons">
+      <a class="ficon" href="https://github.com/rushatdubey/claimsiq" target="_blank" rel="noopener" aria-label="GitHub repository">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      </a>
+      <a class="ficon" href="https://www.linkedin.com/in/rushat/" target="_blank" rel="noopener" aria-label="LinkedIn profile">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a class="ficon" href="mailto:rushat16@icloud.com" aria-label="Send email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </a>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════ DASHBOARD ══════════════════ -->
+<div id="dashboard">
+  <div style="max-width:1100px;margin:0 auto;padding:22px 28px 18px;display:flex;align-items:flex-start;justify-content:space-between">
+    <div class="d-brand">
+      <div class="d-mark" onclick="closeDash()" title="Back to home">IQ</div>
+      <div>
+        <div class="d-name">ClaimsIQ</div>
+        <div class="d-sub">Irish Motor Insurance Analytics · NCID 2009–2023</div>
+      </div>
+    </div>
+    <div class="d-header-right">
+      <button class="back-btn" onclick="closeDash()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        Back
+      </button>
+      <button class="theme-btn" id="theme-btn-dash" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark/light mode">🌙</button>
+      <div class="author-chip">
+        <div class="author-av">RD</div>
+        Rushat Dubey
+      </div>
+
+    </div>
+  </div>
+
+  <div style="height:1px;background:var(--nm-dark);opacity:0.4;max-width:1100px;margin:0 auto"></div>
+
+  <div class="tab-rail">
+    <button class="tab-btn active" onclick="goTab('market',this)">Market Overview</button>
+    <button class="tab-btn" onclick="goTab('channels',this)">Settlement Channels</button>
+    <button class="tab-btn" onclick="goTab('drivers',this)">Driver Risk</button>
+    <button class="tab-btn" onclick="goTab('county',this)">County Risk</button>
+    <button class="tab-btn" onclick="goTab('pig',this)">PIG Impact</button>
+  </div>
+
+  <div id="p-market" class="pane active">
+    <div class="kpi-row">
+      <div class="kpi-card"><div class="k-lbl">2023 GWP</div><div class="k-val">€1.14<span>B</span></div><div class="k-sub">1.78M policies</div><span class="badge badge-g">+5.7% YoY</span></div>
+      <div class="kpi-card"><div class="k-lbl">Avg written premium</div><div class="k-val">€638</div><div class="k-sub">market average 2023</div><span class="badge badge-g">+4.2% YoY</span></div>
+      <div class="kpi-card"><div class="k-lbl">Loss ratio</div><div class="k-val">67<span>%</span></div><div class="k-sub">settled over earned</div><span class="badge badge-a">Watch zone</span></div>
+      <div class="kpi-card"><div class="k-lbl">Total claims cost</div><div class="k-val">€693<span>M</span></div><div class="k-sub">settled in 2023</div><span class="badge badge-r">+17.5% YoY</span></div>
+    </div>
+    <div class="chart-grid">
+      <div class="card"><div class="c-lbl">Market size</div><div class="c-title">GWP vs total claims cost (EUR M)</div><div class="c-desc">Ireland's motor insurance market has grown to EUR 1.14B in GWP, but settled claims costs are accelerating faster than premium income, compressing underwriting margins and signalling a structural pricing challenge heading into 2024.</div><div class="legend"><span class="leg-item"><span class="leg-dot" style="background:#2563eb"></span>GWP</span><span class="leg-item"><span class="leg-dot" style="background:#dc2626;border-radius:50%"></span>Claims cost</span></div><div style="position:relative;height:170px"><canvas id="c1" role="img" aria-label="GWP vs claims cost 2009 to 2023">GWP and claims cost trend 2009–2023.</canvas></div></div>
+      <div class="card"><div class="c-lbl">Profitability</div><div class="c-title">Annual loss ratio 2009–2023</div><div class="c-desc">After COVID produced the market's best loss ratios in a decade, frequency recovery and repair inflation have pushed the ratio back to 67% in 2023. Sustained reading above 65% historically precedes a hardening rate cycle.</div><div style="position:relative;height:198px;margin-top:8px"><canvas id="c2" role="img" aria-label="Loss ratio trend">Annual loss ratio 2009–2023.</canvas></div></div>
+    </div>
+    <div class="chart-grid">
+      <div class="card"><div class="c-lbl">Structural shift</div><div class="c-title">Damage vs injury share of total cost</div><div class="c-desc">A decade-long structural shift culminated in 2022 when damage overtook injury for the first time, now representing 53% of settled costs. Insurers weighted toward bodily injury reserving are systematically underreserving for repair inflation and parts supply disruption.</div><div class="legend"><span class="leg-item"><span class="leg-dot" style="background:#6366f1"></span>Damage</span><span class="leg-item"><span class="leg-dot" style="background:#e97c4a;border-radius:50%"></span>Injury</span></div><div style="position:relative;height:148px"><canvas id="c3" role="img" aria-label="Damage vs injury share">Damage and injury share of total cost.</canvas></div><div class="insight"><strong>Crossover in 2022.</strong> Damage is now 53% of costs, up from 32% in 2009. Pricing models anchored on injury severity are increasingly misaligned with actual loss experience.</div></div>
+      <div class="card"><div class="c-lbl">Claim frequency</div><div class="c-title">Claims per 100 policies</div><div class="c-desc">Injury frequency has rebounded to 1.9 per 100 policies after the COVID low of 1.6, while damage frequency has surged back to 6.6, already exceeding pre-pandemic levels. Frequency risk is back and accelerating.</div><div class="legend"><span class="leg-item"><span class="leg-dot" style="background:#dc2626"></span>Injury</span><span class="leg-item"><span class="leg-dot" style="background:#b45309;border-radius:50%"></span>Damage</span></div><div style="position:relative;height:168px"><canvas id="c4" role="img" aria-label="Claim frequency per 100 policies">Claim frequency per 100 policies.</canvas></div></div>
+    </div>
+  </div>
+
+  <div id="p-channels" class="pane">
+    <div class="kpi-row">
+      <div class="kpi-card"><div class="k-lbl">Direct 2023</div><div class="k-val">54<span>%</span></div><div class="k-sub">of all injury claims</div><span class="badge badge-g">+7pts since 2020</span></div>
+      <div class="kpi-card"><div class="k-lbl">IRB 2023</div><div class="k-val">17<span>%</span></div><div class="k-sub">resolution board</div><span class="badge badge-a">Declining</span></div>
+      <div class="kpi-card"><div class="k-lbl">Litigation 2023</div><div class="k-val">29<span>%</span></div><div class="k-sub">court settled share</div><span class="badge badge-r">4.2x cost multiple</span></div>
+      <div class="kpi-card"><div class="k-lbl">Litigation avg cost</div><div class="k-val">€51<span>k</span></div><div class="k-sub">vs €12k direct</div><span class="badge badge-r">Book of Quantum</span></div>
+    </div>
+    <div class="chart-grid">
+      <div class="card"><div class="c-lbl">Channel mix</div><div class="c-title">Share of injury claims by channel</div><div class="c-desc">Every percentage point moved from litigation to direct saves the market approximately EUR 38M in aggregate settlement costs, making channel management the primary lever for loss ratio improvement.</div><div class="legend"><span class="leg-item"><span class="leg-dot" style="background:#15803d"></span>Direct</span><span class="leg-item"><span class="leg-dot" style="background:#b45309;border-radius:50%"></span>IRB</span><span class="leg-item"><span class="leg-dot" style="background:#dc2626"></span>Litigation</span></div><div style="position:relative;height:188px"><canvas id="c5" role="img" aria-label="Channel mix 2009 to 2023">Settlement channel share 2009–2023.</canvas></div></div>
+      <div class="card"><div class="c-lbl">Cost by channel, 2023</div><div class="c-title">Average settlement cost per injury claim</div><div class="c-desc">For every claim diverted from litigation to direct settlement, the insurer retains approximately EUR 39,000 that would otherwise flow to legal fees and inflated award multiples under the Book of Quantum framework.</div><div style="position:relative;height:220px;margin-top:6px"><canvas id="c6" role="img" aria-label="Cost by channel 2023">Average settlement cost per channel 2023.</canvas></div></div>
+    </div>
+    <div class="card-full"><div class="c-lbl">Total cost footprint</div><div class="c-title">Settlement costs by channel, stacked (EUR M)</div><div class="c-desc">Although litigation represents only 29% of claim volume, it consistently accounts for more than half of all injury claims expenditure, making litigation containment the single highest-return claims strategy available to Irish motor insurers today.</div><div class="legend"><span class="leg-item"><span class="leg-dot" style="background:#15803d"></span>Direct</span><span class="leg-item"><span class="leg-dot" style="background:#b45309;border-radius:50%"></span>IRB</span><span class="leg-item"><span class="leg-dot" style="background:#dc2626"></span>Litigation</span></div><div style="position:relative;height:160px"><canvas id="c7" role="img" aria-label="Total cost by channel stacked">Stacked settlement costs by channel.</canvas></div></div>
+  </div>
+
+  <div id="p-drivers" class="pane">
+    <div class="kpi-row">
+      <div class="kpi-card"><div class="k-lbl">17 to 24 injury freq</div><div class="k-val">4.18<span style="font-size:14px">/100</span></div><div class="k-sub">2.2x market average</div><span class="badge badge-r">Very high risk</span></div>
+      <div class="kpi-card"><div class="k-lbl">17 to 24 avg premium</div><div class="k-val">€1,180</div><div class="k-sub">1.85x market average</div><span class="badge badge-a">Under-loaded</span></div>
+      <div class="kpi-card"><div class="k-lbl">35 to 44 baseline</div><div class="k-val">1.90<span style="font-size:14px">/100</span></div><div class="k-sub">injury frequency reference</div><span class="badge badge-g">Reference tier</span></div>
+      <div class="kpi-card"><div class="k-lbl">65+ adequacy</div><div class="k-val">0.95<span>x</span></div><div class="k-sub">premium over claims cost</div><span class="badge badge-a">Marginal cover</span></div>
+    </div>
+    <div class="card-full"><div class="c-lbl">Driver risk profile, 2023</div><div class="c-title">Average premium vs claims cost per policy by age band</div><div class="c-desc">Young driver segments generate claims costs 40% above the loaded premium, while mid-age cohorts cross-subsidise the book. This creates adverse selection pressure if competitors price more accurately by segment, gradually attracting the low-risk cohorts and leaving the cross-subsidised losses behind.</div><div class="legend"><span class="leg-item"><span class="leg-dot" style="background:#b45309"></span>Avg premium</span><span class="leg-item"><span class="leg-dot" style="background:#dc2626;border-radius:50%"></span>Claims cost per policy</span></div><div style="position:relative;height:200px"><canvas id="c8" role="img" aria-label="Premium vs claims cost by age band">Premium vs claims cost per policy by age band.</canvas></div></div>
+    <div class="chart-grid">
+      <div class="card"><div class="c-lbl">Injury frequency, 2023</div><div class="c-title">Per 100 policies by age band</div><div class="c-desc">The 17 to 24 cohort files injury claims at more than double the market rate. Without a commensurate premium uplift, these policyholders represent a structural drag on the loss ratio that compounds over each underwriting year.</div><div style="position:relative;height:180px"><canvas id="c9" role="img" aria-label="Injury frequency by age band">Injury frequency per 100 policies.</canvas></div></div>
+      <div class="card"><div class="c-lbl">Pricing adequacy ratio, 2023</div><div class="c-title">Premium divided by expected claims cost</div><div class="c-desc">A ratio below 1.0 means the segment is consuming more in claims than it contributes in premium. Young drivers at 0.71 means 29 cents of every euro of expected cost is subsidised by older, lower-risk policyholders.</div><div style="position:relative;height:180px"><canvas id="c10" role="img" aria-label="Adequacy ratio by age band">Adequacy ratio by age band.</canvas></div><div class="insight"><strong>17 to 24 adequacy at 0.71x.</strong> Damage frequency is structurally underweighted in current tariff models, creating a gap that widens as repair costs inflate faster than premium adjustments.</div></div>
+    </div>
+  </div>
+
+  <div id="p-county" class="pane">
+    <div class="kpi-row">
+      <div class="kpi-card"><div class="k-lbl">Dublin loss ratio</div><div class="k-val">123.8<span>%</span></div><div class="k-sub">significantly above national</div><span class="badge badge-r">Underpriced</span></div>
+      <div class="kpi-card"><div class="k-lbl">High risk counties</div><div class="k-val">4</div><div class="k-sub">loss ratio at or above 120%</div><span class="badge badge-r">Dublin Cork Meath Louth</span></div>
+      <div class="kpi-card"><div class="k-lbl">Dublin premium</div><div class="k-val">€752</div><div class="k-sub">118% of national index</div><span class="badge badge-a">Still underpriced</span></div>
+      <div class="kpi-card"><div class="k-lbl">Best opportunity</div><div class="k-val">Leitrim</div><div class="k-sub">loss ratio 81.6%</div><span class="badge badge-g">Competitive opportunity</span></div>
+    </div>
+    <div class="chart-grid-w">
+      <div class="card"><div class="c-lbl">County ranking, 2023</div><div class="c-title">Top 15 counties by loss ratio</div><div class="c-desc">The M50 corridor effect drives Dublin's loss ratio 24 points above the national average. Insurers applying a single national rate card are effectively subsidising urban policyholders with rural premium income, making them vulnerable to geographic cherry-picking by data-driven competitors.</div><div style="position:relative;height:300px"><canvas id="c11" role="img" aria-label="County loss ratio ranking 2023">Top 15 county loss ratios 2023.</canvas></div></div>
+      <div class="card" style="overflow:hidden"><div class="c-lbl">All 26 counties, 2023</div><div class="c-title">Risk tier and pricing signal</div><div style="overflow-y:auto;max-height:360px"><table class="ctbl"><thead><tr><th>County</th><th>LR</th><th>Tier</th><th>Signal</th></tr></thead><tbody id="ctbody"></tbody></table></div></div>
+    </div>
+  </div>
+
+  <div id="p-pig" class="pane">
+    <div class="pig-3">
+      <div class="kpi-card"><div class="k-lbl">Cumulative saving</div><div class="pig-big">€435M</div><div class="k-sub">since April 2021</div><span class="badge badge-g">Guidelines active</span></div>
+      <div class="kpi-card"><div class="k-lbl">2023 saving per claim</div><div class="k-val">€10,290</div><div class="k-sub">vs pre-PIG baseline</div><span class="badge badge-g">35% reduction</span></div>
+      <div class="kpi-card"><div class="k-lbl">Under guidelines</div><div class="k-val">85<span>%</span></div><div class="k-sub">direct and IRB, 2023</div><span class="badge badge-g">Up from 45% in 2021</span></div>
+    </div>
+    <div class="chart-grid">
+      <div class="card"><div class="c-lbl">PIG savings, 2021 to 2023</div><div class="c-title">Annual market saving from guidelines (EUR M)</div><div class="c-desc">The Personal Injuries Guidelines represent the most impactful insurance reform in Ireland in a generation, delivering EUR 435M in cumulative savings since April 2021. The critical unfinished business is extending effective guideline application to litigated claims, which still operate under legacy Book of Quantum valuations 40 to 60% higher for equivalent injuries.</div><div style="position:relative;height:180px"><canvas id="c12" role="img" aria-label="Annual PIG savings">Annual PIG savings 2021–2023.</canvas></div></div>
+      <div class="card"><div class="c-lbl">Pricing adequacy</div><div class="c-title">Written vs required premium (70% LR target)</div><div class="c-desc">In 2023 the written premium is only EUR 82 above the required level, the tightest margin in 15 years. Any acceleration in claims inflation without a corresponding rate action will push the market into technical under-pricing, triggering a mandatory hardening cycle.</div><div class="legend"><span class="leg-item"><span class="leg-dot" style="background:#b45309"></span>Written premium</span><span class="leg-item"><span class="leg-dot" style="background:#dc2626;border-radius:50%"></span>Required premium</span></div><div style="position:relative;height:200px;margin-top:6px"><canvas id="c13" role="img" aria-label="Written vs required premium">Written vs required premium 2009–2023.</canvas></div></div>
+    </div>
+    <div class="card-full"><div class="c-lbl">Injury claim cost trend</div><div class="c-title">Average settled injury claim cost with PIG introduction marker, April 2021</div><div class="c-desc">Average settled injury costs have continued to rise in nominal terms even after the guidelines took effect, because savings are concentrated in direct and IRB channels while the overall average is dragged upward by litigation costs and legacy pre-guideline cases still working through the courts. The full financial benefit will crystallise as the litigation backlog clears over the next three to five years.</div><div style="position:relative;height:140px"><canvas id="c14" role="img" aria-label="Injury cost trend">Average injury claim cost trend 2009–2023.</canvas></div></div>
+  </div>
+
+  <div style="max-width:1100px;margin:28px auto 0 auto;padding:0 28px 40px">
+    <div class="d-footer">
+      <div class="d-footer-src">Central Bank of Ireland, NCID Reports 1 to 6<br>2009 to 2023 · 1.78M policies · 88 to 98% market coverage</div>
+      <div class="d-footer-by">by <strong>Rushat Dubey</strong></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Link copied to clipboard</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+let chartsBuilt = false;
+let isDark = false;
+
+function toggleTheme() {
+  isDark = !isDark;
+  document.body.classList.toggle('dark', isDark);
+  const icon = isDark ? '☀️' : '🌙';
+  document.querySelectorAll('.theme-btn').forEach(b => b.textContent = icon);
+  // Update chart colors if already built
+  if (chartsBuilt) {
+    const bg = isDark ? '#0f1117' : '#ffffff';
+    const tc = isDark ? '#475569' : '#94a3b8';
+    const gr = isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.04)';
+    const tipBg = isDark ? '#1a1d27' : '#ffffff';
+    const tipTitle = isDark ? '#f1f5f9' : '#0f1117';
+    const tipBody = isDark ? '#94a3b8' : '#64748b';
+    Chart.instances && Object.values(Chart.instances).forEach(ch => {
+      if (!ch) return;
+      const sc = ch.options.scales || {};
+      ['x','y'].forEach(ax => {
+        if (sc[ax]) {
+          if (sc[ax].ticks) sc[ax].ticks.color = tc;
+          if (sc[ax].grid) sc[ax].grid.color = gr;
+        }
+      });
+      if (ch.options.plugins && ch.options.plugins.tooltip) {
+        Object.assign(ch.options.plugins.tooltip, { backgroundColor: tipBg, titleColor: tipTitle, bodyColor: tipBody, borderColor: isDark ? 'rgba(255,255,255,0.09)' : 'rgba(0,0,0,0.09)' });
+      }
+      ch.update('none');
+    });
+  }
+}
+
+function openDash() {
+  const l = document.getElementById('landing');
+  const d = document.getElementById('dashboard');
+  l.style.animation = 'expandIn .35s cubic-bezier(.22,1,.36,1) reverse both';
+  setTimeout(() => {
+    l.style.display = 'none';
+    d.style.display = 'block';
+    d.style.animation = 'expandIn .4s cubic-bezier(.22,1,.36,1) both';
+    if (!chartsBuilt) { buildCharts(); chartsBuilt = true; }
+    window.scrollTo(0, 0);
+  }, 300);
+}
+
+function closeDash() {
+  const l = document.getElementById('landing');
+  const d = document.getElementById('dashboard');
+  d.style.animation = 'expandIn .3s cubic-bezier(.22,1,.36,1) reverse both';
+  setTimeout(() => {
+    d.style.display = 'none';
+    l.style.display = 'block';
+    l.style.animation = 'expandIn .4s cubic-bezier(.22,1,.36,1) both';
+    window.scrollTo(0, 0);
+  }, 250);
+}
+
+function goTab(id, btn) {
+  document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('p-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function doShare() {
+  const url = window.location.href;
+  if (navigator.share) {
+    navigator.share({ title: 'ClaimsIQ', url }).catch(() => copyIt(url));
+  } else { copyIt(url); }
+}
+
+function copyIt(url) {
+  navigator.clipboard.writeText(url).then(() => showToast('Link copied to clipboard')).catch(() => showToast('Share via claude.ai'));
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+const COUNTIES = [
+  {n:'Dublin',lr:123.8,t:'High Risk',s:'r'},{n:'Cork',lr:122.1,t:'Above Average',s:'r'},
+  {n:'Meath',lr:122.1,t:'High Risk',s:'r'},{n:'Louth',lr:121.9,t:'High Risk',s:'r'},
+  {n:'Kildare',lr:119.5,t:'High Risk',s:'r'},{n:'Wicklow',lr:115.2,t:'Above Average',s:'r'},
+  {n:'Limerick',lr:112.4,t:'Above Average',s:'a'},{n:'Wexford',lr:108.3,t:'Below Average',s:'a'},
+  {n:'Waterford',lr:107.1,t:'Below Average',s:'a'},{n:'Galway',lr:104.8,t:'Below Average',s:'a'},
+  {n:'Westmeath',lr:103.2,t:'Below Average',s:'a'},{n:'Kilkenny',lr:99.5,t:'Below Average',s:'g'},
+  {n:'Laois',lr:97.8,t:'Low Risk',s:'g'},{n:'Kerry',lr:96.4,t:'Low Risk',s:'g'},
+  {n:'Clare',lr:94.1,t:'Low Risk',s:'g'},{n:'Tipperary',lr:92.6,t:'Low Risk',s:'g'},
+  {n:'Carlow',lr:91.3,t:'Low Risk',s:'g'},{n:'Offaly',lr:90.1,t:'Low Risk',s:'g'},
+  {n:'Cavan',lr:89.4,t:'Low Risk',s:'g'},{n:'Monaghan',lr:88.7,t:'Low Risk',s:'g'},
+  {n:'Donegal',lr:87.3,t:'Low Risk',s:'g'},{n:'Sligo',lr:86.6,t:'Low Risk',s:'g'},
+  {n:'Mayo',lr:85.4,t:'Low Risk',s:'g'},{n:'Roscommon',lr:84.2,t:'Low Risk',s:'g'},
+  {n:'Longford',lr:83.1,t:'Low Risk',s:'g'},{n:'Leitrim',lr:81.6,t:'Low Risk',s:'g'},
+];
+
+const tb = document.getElementById('ctbody');
+COUNTIES.forEach(c => {
+  const tc = c.t==='High Risk'?'t-hi':c.t==='Above Average'?'t-ab':c.t==='Below Average'?'t-be':'t-lo';
+  const sc = c.s==='r'?'sig-r':c.s==='g'?'sig-g':'sig-a';
+  const st = c.s==='r'?'Raise premium':c.s==='g'?'Competitive opp':'Monitor';
+  tb.innerHTML += `<tr><td>${c.n}</td><td>${c.lr.toFixed(1)}%</td><td><span class="tier-tag ${tc}">${c.t}</span></td><td class="${sc}">${st}</td></tr>`;
+});
+
+function buildCharts() {
+  const YRS=[2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023];
+  const GWP=[997,983,947,922.8,920.6,973.6,1052.6,1178.4,1258.1,1237.5,1224.6,1093.5,1063,1074.1,1135.6];
+  const CM=[380,365,345,330,320,325,345,390,430,450,465,345,380,590,693];
+  const LR=[72,70,68,65,63,62,63,68,72,73,74,60,63,65,67];
+  const DMG=[32,33,34,35,36,37,38,40,42,44,46,48,49,51,53];
+  const INJ=[68,67,66,65,64,63,62,60,58,56,54,52,51,49,47];
+  const IF=[3.8,3.6,3.2,2.9,2.7,2.6,2.5,2.5,2.4,2.3,2.2,1.6,1.7,1.8,1.9];
+  const DF=[7.2,6.9,6.5,6.1,5.8,5.7,5.8,6.0,6.1,6.2,6.3,4.8,5.5,6.4,6.6];
+  const CD=[42,43,44,44,45,45,46,46,46,47,47,48,50,52,54];
+  const CI=[28,27,27,27,27,27,26,26,26,25,25,22,18,16,17];
+  const CL=[30,30,29,29,28,28,28,28,28,28,28,30,32,32,29];
+  const AG=['17-24','25-34','35-44','45-54','55-64','65+'];
+  const PR=[1180,798,638,587,561,606];
+  const CC=[1659,1047,787,678,608,646];
+  const IF2=[4.18,2.57,1.90,1.62,1.52,1.71];
+  const AQ=[0.711,0.762,0.810,0.866,0.923,0.938];
+  const AP=[631,614,596,587,579,601,636,694,731,710,695,644,618,612,638];
+  const RP=[344,326,310,300,288,287,298,328,357,369,377,290,316,480,556];
+  const IC=[17200,17800,18300,18900,19200,19800,20600,22100,23800,25500,26800,27900,28600,29100,29400];
+
+  const BG='#ffffff'; const TC='#94a3b8'; const GR='rgba(0,0,0,0.04)';
+  const tip={backgroundColor:'#e8ecf1',borderColor:'rgba(0,0,0,0.09)',borderWidth:1,titleColor:'#0f1117',bodyColor:'#64748b',titleFont:{family:'-apple-system,sans-serif',size:11},bodyFont:{family:'-apple-system,sans-serif',size:11},padding:10,cornerRadius:10};
+  const noLeg={legend:{display:false},tooltip:tip};
+  const sc=(sy='',px='')=>({x:{ticks:{color:TC,font:{size:10},maxRotation:45,autoSkip:true},grid:{color:GR}},y:{ticks:{color:TC,font:{size:10},callback:v=>px+(v>=1000?(v/1000).toFixed(0)+'k':v)+sy},grid:{color:GR}}});
+
+  new Chart(document.getElementById('c1'),{type:'line',data:{labels:YRS,datasets:[{label:'GWP',data:GWP,borderColor:'#2563eb',backgroundColor:'rgba(37,99,235,0.06)',tension:.4,fill:true,pointRadius:2,borderWidth:1.5},{label:'Claims',data:CM,borderColor:'#dc2626',tension:.4,fill:false,pointRadius:2,borderWidth:1.5,borderDash:[4,3]}]},options:{responsive:true,maintainAspectRatio:false,scales:sc(),plugins:noLeg}});
+  new Chart(document.getElementById('c2'),{type:'bar',data:{labels:YRS,datasets:[{data:LR,backgroundColor:LR.map(v=>v>=70?'rgba(220,38,38,0.16)':v>=63?'rgba(180,83,9,0.14)':'rgba(21,128,61,0.14)'),borderColor:LR.map(v=>v>=70?'rgba(220,38,38,0.5)':v>=63?'rgba(180,83,9,0.45)':'rgba(21,128,61,0.45)'),borderWidth:1,borderRadius:4,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,scales:{...sc('%'),y:{...sc('%').y,min:0,max:85}},plugins:noLeg}});
+  new Chart(document.getElementById('c3'),{type:'line',data:{labels:YRS,datasets:[{label:'Damage',data:DMG,borderColor:'#6366f1',backgroundColor:'rgba(99,102,241,0.07)',tension:.4,fill:true,pointRadius:2,borderWidth:1.5},{label:'Injury',data:INJ,borderColor:'#e97c4a',tension:.4,fill:false,pointRadius:2,borderWidth:1.5,borderDash:[4,3]}]},options:{responsive:true,maintainAspectRatio:false,scales:{...sc('%'),y:{...sc('%').y,min:25,max:75}},plugins:noLeg}});
+  new Chart(document.getElementById('c4'),{type:'line',data:{labels:YRS,datasets:[{label:'Injury',data:IF,borderColor:'#dc2626',tension:.4,pointRadius:2,borderWidth:1.5},{label:'Damage',data:DF,borderColor:'#b45309',tension:.4,pointRadius:2,borderWidth:1.5,borderDash:[4,3]}]},options:{responsive:true,maintainAspectRatio:false,scales:sc(),plugins:noLeg}});
+  new Chart(document.getElementById('c5'),{type:'line',data:{labels:YRS,datasets:[{label:'Direct',data:CD,borderColor:'#15803d',backgroundColor:'rgba(21,128,61,0.06)',fill:true,tension:.4,pointRadius:2,borderWidth:1.5},{label:'IRB',data:CI,borderColor:'#b45309',tension:.4,pointRadius:2,borderWidth:1.5,borderDash:[4,3]},{label:'Litigation',data:CL,borderColor:'#dc2626',tension:.4,pointRadius:2,borderWidth:1.5,borderDash:[2,4]}]},options:{responsive:true,maintainAspectRatio:false,scales:{...sc('%'),y:{...sc('%').y,min:0,max:65}},plugins:noLeg}});
+  new Chart(document.getElementById('c6'),{type:'bar',data:{labels:['Direct','IRB','Litigation'],datasets:[{data:[12348,19893,51862],backgroundColor:['rgba(21,128,61,0.14)','rgba(180,83,9,0.14)','rgba(220,38,38,0.14)'],borderColor:['rgba(21,128,61,0.45)','rgba(180,83,9,0.42)','rgba(220,38,38,0.5)'],borderWidth:1,borderRadius:6,borderSkipped:false}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,scales:{x:{ticks:{color:TC,font:{size:10},callback:v=>'€'+(v/1000).toFixed(0)+'k'},grid:{color:GR}},y:{ticks:{color:TC,font:{size:11,weight:'500'}},grid:{display:false}}},plugins:noLeg}});
+  new Chart(document.getElementById('c7'),{type:'bar',data:{labels:YRS,datasets:[{label:'Direct',data:[182,185,189,191,196,198,204,212,220,225,232,198,215,242,283],backgroundColor:'rgba(21,128,61,0.45)',borderRadius:2},{label:'IRB',data:[197,189,178,172,169,171,178,186,193,198,204,171,152,143,153],backgroundColor:'rgba(180,83,9,0.40)',borderRadius:2},{label:'Litigation',data:[546,534,498,478,459,468,493,533,578,598,621,498,545,598,612],backgroundColor:'rgba(220,38,38,0.35)',borderRadius:2}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{stacked:true,ticks:{color:TC,font:{size:10}},grid:{color:GR}},y:{stacked:true,ticks:{color:TC,font:{size:10},callback:v=>'€'+v+'M'},grid:{color:GR}}},plugins:noLeg}});
+  new Chart(document.getElementById('c8'),{type:'bar',data:{labels:AG,datasets:[{label:'Premium',data:PR,backgroundColor:'rgba(180,83,9,0.16)',borderColor:'rgba(180,83,9,0.5)',borderWidth:1,borderRadius:5,borderSkipped:false},{label:'Claims cost',data:CC,backgroundColor:'rgba(220,38,38,0.13)',borderColor:'rgba(220,38,38,0.45)',borderWidth:1,borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{ticks:{color:TC,font:{size:11}},grid:{display:false}},y:{ticks:{color:TC,font:{size:10},callback:v=>'€'+v},grid:{color:GR}}},plugins:noLeg}});
+  new Chart(document.getElementById('c9'),{type:'bar',data:{labels:AG,datasets:[{data:IF2,backgroundColor:IF2.map(v=>v>=4?'rgba(220,38,38,0.16)':v>=2.5?'rgba(180,83,9,0.14)':'rgba(21,128,61,0.13)'),borderColor:IF2.map(v=>v>=4?'rgba(220,38,38,0.5)':v>=2.5?'rgba(180,83,9,0.45)':'rgba(21,128,61,0.45)'),borderWidth:1,borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{ticks:{color:TC,font:{size:11}},grid:{display:false}},y:{min:0,max:5,ticks:{color:TC,font:{size:10},callback:v=>v+'/100'},grid:{color:GR}}},plugins:noLeg}});
+  new Chart(document.getElementById('c10'),{type:'bar',data:{labels:AG,datasets:[{data:AQ,backgroundColor:AQ.map(v=>v<.80?'rgba(220,38,38,0.14)':v<.95?'rgba(180,83,9,0.14)':'rgba(21,128,61,0.13)'),borderColor:AQ.map(v=>v<.80?'rgba(220,38,38,0.48)':v<.95?'rgba(180,83,9,0.44)':'rgba(21,128,61,0.44)'),borderWidth:1,borderRadius:5,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{ticks:{color:TC,font:{size:11}},grid:{display:false}},y:{min:0.5,max:1.1,ticks:{color:TC,font:{size:10},callback:v=>v.toFixed(2)+'x'},grid:{color:GR}}},plugins:noLeg}});
+  const top15=COUNTIES.slice(0,15);
+  new Chart(document.getElementById('c11'),{type:'bar',data:{labels:top15.map(c=>c.n),datasets:[{data:top15.map(c=>c.lr),backgroundColor:top15.map(c=>c.lr>=120?'rgba(220,38,38,0.16)':c.lr>=110?'rgba(180,83,9,0.14)':c.lr>=100?'rgba(99,102,241,0.14)':'rgba(21,128,61,0.13)'),borderColor:top15.map(c=>c.lr>=120?'rgba(220,38,38,0.5)':c.lr>=110?'rgba(180,83,9,0.45)':c.lr>=100?'rgba(99,102,241,0.4)':'rgba(21,128,61,0.44)'),borderWidth:1,borderRadius:4,borderSkipped:false}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,scales:{x:{min:75,max:130,ticks:{color:TC,font:{size:10},callback:v=>v+'%'},grid:{color:GR}},y:{ticks:{color:TC,font:{size:10}},grid:{display:false}}},plugins:noLeg}});
+  new Chart(document.getElementById('c12'),{type:'bar',data:{labels:[2021,2022,2023],datasets:[{data:[76.8,148.5,210],backgroundColor:['rgba(21,128,61,0.13)','rgba(21,128,61,0.20)','rgba(21,128,61,0.30)'],borderColor:['rgba(21,128,61,0.45)','rgba(21,128,61,0.56)','rgba(21,128,61,0.68)'],borderWidth:1,borderRadius:8,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{ticks:{color:TC,font:{size:12}},grid:{display:false}},y:{ticks:{color:TC,font:{size:10},callback:v=>'€'+v+'M'},grid:{color:GR}}},plugins:noLeg}});
+  new Chart(document.getElementById('c13'),{type:'line',data:{labels:YRS,datasets:[{label:'Written',data:AP,borderColor:'#b45309',tension:.4,pointRadius:2,borderWidth:1.5},{label:'Required',data:RP,borderColor:'#dc2626',tension:.4,pointRadius:2,borderWidth:1.5,borderDash:[5,3]}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{ticks:{color:TC,font:{size:10},maxRotation:45},grid:{color:GR}},y:{ticks:{color:TC,font:{size:10},callback:v=>'€'+v},grid:{color:GR}}},plugins:noLeg}});
+  new Chart(document.getElementById('c14'),{type:'line',data:{labels:YRS,datasets:[{data:IC,borderColor:'#6366f1',backgroundColor:'rgba(99,102,241,0.07)',fill:true,tension:.4,pointRadius:YRS.map(y=>y===2021?5:2),pointBackgroundColor:YRS.map(y=>y===2021?'#dc2626':'#6366f1'),borderWidth:1.5}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{ticks:{color:TC,font:{size:10}},grid:{color:GR}},y:{ticks:{color:TC,font:{size:10},callback:v=>'€'+(v/1000).toFixed(0)+'k'},grid:{color:GR}}},plugins:{...noLeg,tooltip:{...tip,callbacks:{label:ctx=>'€'+ctx.raw.toLocaleString()}}}}});
+}
+</script>
