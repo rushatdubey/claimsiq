@@ -1,0 +1,16 @@
+year,avg_injury_claim_cost_eur,pct_direct_irb_under_guidelines,claims_settled_under_guidelines,avg_saving_per_claim_eur,total_market_saving_eur_m,guidelines_active
+2009,17200,0.0,0,0,0.0,False
+2010,17800,0.0,0,0,0.0,False
+2011,18300,0.0,0,0,0.0,False
+2012,18900,0.0,0,0,0.0,False
+2013,19200,0.0,0,0,0.0,False
+2014,19800,0.0,0,0,0.0,False
+2015,20600,0.0,0,0,0.0,False
+2016,22100,0.0,0,0,0.0,False
+2017,23800,0.0,0,0,0.0,False
+2018,25500,0.0,0,0,0.0,False
+2019,26800,0.0,0,0,0.0,False
+2020,27900,0.0,0,0,0.0,False
+2021,28600,45.0,8947,8580,76.8,True
+2022,29100,72.0,15466,9603,148.5,True
+2023,29400,85.0,20410,10290,210.0,True
