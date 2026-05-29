@@ -17,7 +17,7 @@ ClaimsIQ is built to surface all of it. It transforms 15 years of regulator-publ
 
 ## Live Demo
 
-https://claimsiq.vercel.app
+
 
 You can also clone the repository and open `index.html` directly in your browser. No build step, no dependencies.
 
