@@ -17,7 +17,22 @@ ClaimsIQ is built to surface all of it. It transforms 15 years of regulator-publ
 
 ## Live Demo
 
+Explore the live interactive platform:
 
+https://claimsiq-lemon.vercel.app
+
+The deployed dashboard includes:
+
+- Executive insurance market overview
+- Claims frequency and severity analytics
+- Settlement channel intelligence
+- Driver risk segmentation
+- County-level underwriting heatmaps
+- Personal Injuries Guidelines (PIG) impact modelling
+- Dark/light mode enterprise dashboard
+- Interactive charts and responsive layouts
+
+Built as a production-style insurance intelligence platform using HTML, CSS, JavaScript, Chart.js, SQL analytics, and Python-generated datasets.
 
 You can also clone the repository and open `index.html` directly in your browser. No build step, no dependencies.
 
